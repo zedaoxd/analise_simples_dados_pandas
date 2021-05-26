@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 df__enem = pd.read_csv('D:/pythonProject/MICRODADOS_ENEM_2019.csv', encoding='Latin1', sep=';')
@@ -36,6 +37,16 @@ print(f"Menor idade: {df_itaperuna['NU_IDADE'].min()}")
 print(f"Maior idade: {df_itaperuna['NU_IDADE'].max()}")
 # maior idade: 64
 print('-=' * 60)
+# ------------------------ gráfico relação idade/notas das pessoas de Itaperuna  ---------------------------------------
+idades_itaperuna = df_itaperuna['NU_IDADE']
+notas_itaperuna = notas_Itaperuna = (df_itaperuna['NU_NOTA_CN'] + df_itaperuna['NU_NOTA_CH'] +
+                                     df_itaperuna['NU_NOTA_LC'] + df_itaperuna['NU_NOTA_MT']) / 4
+notas_Itaperuna = notas_Itaperuna.dropna()
+plt.scatter(idades_itaperuna, notas_itaperuna)
+plt.grid()
+plt.xlabel('Idades')
+plt.ylabel('Notas')
+plt.title('Relação idade/notas Itaperuna Enem-2019')
 
 # ##-------------------- De Itaperuna quantos homens e mulheres fizeram o enem -----------------------------------------
 print(f"Quantidade de Homens e Mulheres que fizeram em Itaperuna: \n{df_itaperuna['TP_SEXO'].value_counts()}")
@@ -44,9 +55,7 @@ print('-=' * 60)
 
 # ##-------------------------- Média, maior e menor nota em Itaperuna --------------------------------------------------
 print('Média, maior e menor nota em Itaperuna:')
-notas_Itaperuna = (df_itaperuna['NU_NOTA_CN'] + df_itaperuna['NU_NOTA_CH'] + df_itaperuna['NU_NOTA_LC'] +
-                   df_itaperuna['NU_NOTA_MT']) / 4
-notas_Itaperuna = notas_Itaperuna.dropna()
+
 media = sum(notas_Itaperuna) / len(notas_Itaperuna)
 maior = notas_Itaperuna.max()
 menor = notas_Itaperuna.min()
@@ -68,5 +77,5 @@ for valor in df_itaperuna['TP_ESCOLA']:
         privada += 1
 print(f'Não Respondeu: {nao_respondeu}, Pública: {publica}, Privada: {privada}')
 print('-=' * 60)
-
+plt.show()
 
